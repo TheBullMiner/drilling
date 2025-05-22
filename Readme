@@ -1,0 +1,54 @@
+# Vibration Data Analysis for Mining Applications
+
+This repository contains Python scripts and sample data for analyzing vibration sensor readings, with a focus on applications relevant to the mining industry (e.g., equipment monitoring, drilling analysis, structural health).
+
+## Current Contents:
+
+*   **`vibrationsnalysis.ipynb`:**
+    *   **Purpose:** This script demonstrates a workflow for processing and visualizing accelerometer (ACC) data from a CSV file (`realvibrationdata.csv`).
+    *   **Key Functionalities:**
+        1.  **Data Loading:** Imports necessary libraries (Pandas, NumPy, Matplotlib) and loads sensor data from `realvibrationdata.csv`.
+        2.  **Data Cleaning & Preparation:**
+            *   Filters records specifically for accelerometer ('ACC') data.
+            *   Converts raw sensor value columns (`Value_X`, `Value_Y`, `Value_Z`) to numeric types, handling potential non-numeric entries by coercing them to NaN.
+            *   Removes rows with NaN values in the essential accelerometer columns to ensure data integrity for calculations.
+        3.  **Feature Engineering:**
+            *   Calculates the **3D acceleration magnitude** (`Accel_Mag`) from X, Y, and Z components: `sqrt(X^2 + Y^2 + Z^2)`.
+            *   Computes a **rolling standard deviation** (`Accel_Mag_StdDev`) on the acceleration magnitude. This serves as a proxy for vibration "intensity" or energy over a defined window.
+        4.  **Visualization:**
+            *   Plots the raw Z-axis accelerometer signal over time (relative sample index).
+            *   Generates a two-panel plot:
+                *   **Top Panel:** Shows the calculated acceleration magnitude.
+                *   **Bottom Panel:** Displays the rolling standard deviation (intensity) and overlays a dynamically calculated **event threshold** (e.g., mean intensity + 2 standard deviations of intensity) to highlight periods of potentially significant vibration.
+    *   **Input Data:** Expects a CSV file named `realvibrationdata.csv` in the same directory (or path adjusted in the script) with columns like `Record_Type`, `Value_X`, `Value_Y`, `Value_Z`.
+    *   **Output:** Prints processing steps and information to the console, and displays Matplotlib plots.
+
+*   **`realvibrationdata.csv` (Sample Data):**
+    *   A sample CSV file containing sensor readings, including accelerometer data, used by the `vibration_analysis_script.py`.
+    *   *(Note: If this data is very large or proprietary, consider providing a smaller, anonymized snippet or instructions on how to generate/obtain similar data.)*
+
+## How to Use:
+
+1.  Ensure you have Python installed.
+2.  Install the required libraries:
+    ```bash
+    pip install pandas numpy matplotlib
+    ```
+
+3.  Place the `realvibrationdata.csv` file in the same directory as the Python script, or update the `archivo_sensores` variable in the script with the correct path.
+4.  Run the script from your terminal:
+    ```bash
+    python vibration_analysis_script.py
+    ```
+
+## Potential Applications & Further Development:
+
+This script provides a foundational example. It can be extended for:
+*   Real-time data processing.
+*   More sophisticated event detection algorithms.
+*   Frequency domain analysis (FFT).
+*   Machine learning for predictive maintenance or anomaly detection.
+*   Integration with specific mining equipment monitoring systems.
+
+---
+We welcome contributions, suggestions, and discussions on how to improve and expand these tools for the mining community!
